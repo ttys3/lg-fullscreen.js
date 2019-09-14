@@ -1,5 +1,5 @@
 /**!
- * lg-fullscreen.js | 1.1.1 | September 14th 2019
+ * lg-fullscreen.js | 1.1.2 | September 14th 2019
  * http://sachinchoolur.github.io/lg-fullscreen.js
  * Copyright (c) 2016 Sachin N; 
  * @license GPLv3 
@@ -108,7 +108,7 @@
         });
 
         utils.on(this.core.outer.querySelector('.lg-fullscreen'), 'click.lg', function () {
-            if (this.isFullScreen()) {
+            if (_this.isFullScreen()) {
                 _this.exitFullscreen();
             } else {
                 _this.requestFullscreen();

@@ -69,7 +69,7 @@ Fullscreen.prototype.exitFullscreen = function() {
 
 // https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Using_full_screen_mode
 Fullscreen.prototype.fullScreen = function() {
-    var _this = this;
+    let _this = this;
 
     utils.on(document, 'fullscreenchange.lgfullscreen webkitfullscreenchange.lgfullscreen mozfullscreenchange.lgfullscreen MSFullscreenChange.lgfullscreen', function() {
         if (utils.hasClass(_this.core.outer, 'lg-fullscreen-on')) {
@@ -80,7 +80,7 @@ Fullscreen.prototype.fullScreen = function() {
     });
 
     utils.on(this.core.outer.querySelector('.lg-fullscreen'), 'click.lg', function() {
-        if (this.isFullScreen()) {
+        if (_this.isFullScreen()) {
             _this.exitFullscreen();
         } else {
             _this.requestFullscreen();
