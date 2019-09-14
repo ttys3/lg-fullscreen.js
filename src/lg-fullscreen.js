@@ -2,15 +2,6 @@ var fullscreenDefaults = {
     fullScreen: true
 };
 
-function isFullScreen() {
-    return (
-        document.fullscreenElement ||
-        document.mozFullScreenElement ||
-        document.webkitFullscreenElement ||
-        document.msFullscreenElement
-    );
-}
-
 var Fullscreen = function(element) {
 
     this.el = element;
@@ -23,8 +14,19 @@ var Fullscreen = function(element) {
     return this;
 };
 
+
+Fullscreen.prototype.isFullScreen = function() {
+    let fsEle = (
+        document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement
+    );
+    return fsEle === this.core.outer;
+};
+
 Fullscreen.prototype.init = function() {
-    var fullScreen = '';
+    let fullScreen = '';
     if (this.core.s.fullScreen) {
 
         // check for fullscreen browser support
@@ -40,7 +42,8 @@ Fullscreen.prototype.init = function() {
 };
 
 Fullscreen.prototype.requestFullscreen = function() {
-    var el = document.documentElement;
+    // outer = document.querySelector('.lg-outer');
+    let el = this.core.outer;
     if (el.requestFullscreen) {
         el.requestFullscreen();
     } else if (el.msRequestFullscreen) {
@@ -77,7 +80,7 @@ Fullscreen.prototype.fullScreen = function() {
     });
 
     utils.on(this.core.outer.querySelector('.lg-fullscreen'), 'click.lg', function() {
-        if (isFullScreen()) {
+        if (this.isFullScreen()) {
             _this.exitFullscreen();
         } else {
             _this.requestFullscreen();
@@ -89,7 +92,7 @@ Fullscreen.prototype.fullScreen = function() {
 Fullscreen.prototype.destroy = function() {
 
     // exit from fullscreen if activated
-    if(isFullScreen()) {
+    if(this.isFullScreen()) {
         this.exitFullscreen();
     }
 
